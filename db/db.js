@@ -48,6 +48,10 @@ var User = new Schema({
     }
 });
 
+User.virtual('info.fullname').get(function () {
+    return this.info.first_name + ' ' + this.info.last_name;
+});
+
 User.methods.areFriends = function(anotherSocialId, callback) {
     return this.model('UserModel').count({
         _id: this._id,

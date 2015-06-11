@@ -22,12 +22,9 @@ app.set('port', port);
 
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-io.on('connection', function(socket){
-    console.log('a user connected');
-    socket.on('user sent link', function(params) {
-        console.log('sent new link', params);
-    });
-});
+var io_controller = require('../socket/socket_controller');
+
+io_controller.connect(io);
 
 /**
  * Listen on provided port, on all network interfaces.
