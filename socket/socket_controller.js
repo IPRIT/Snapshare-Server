@@ -1,6 +1,7 @@
 var DbModels = require('../db/db');
 var SocketUsers = require('./socket_users');
 var debug = require('../utils/utils');
+var config = require('../config/config').config;
 
 function Connect(io) {
     io.on('connection', function(socket) {
@@ -18,7 +19,7 @@ function Connect(io) {
                 }
                 social_id = user.info.social_id;
                 SocketUsers.push(social_id, socket.id);
-                socket.emit('user joined');
+                socket.emit('user joined', config.versionHash);
                 var missed_messages = user.missed_messages;
                 if (missed_messages.length) {
                     debug.log('Start sending missed messages', '[' + social_id + ']');

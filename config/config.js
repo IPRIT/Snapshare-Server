@@ -9,5 +9,6 @@ module.exports.config = {
     vk: {
         client_id: 4952927,
         client_secret: '5lgC8Z2oPTbBPIQjuWA5'
-    }
+    },
+    versionHash: 'h4hhsvjketkjrskjnkjdfjkhdjk'
 };
