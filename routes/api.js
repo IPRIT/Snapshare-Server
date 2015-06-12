@@ -2,6 +2,7 @@ var express = require('express');
 var auth = require('../auth/auth');
 var DbModels = require('../db/db');
 var vk = require('vk-sdk');
+var debug = require('../utils/utils');
 
 var router = express.Router();
 
@@ -44,12 +45,13 @@ router.get('/:api_method', function(req, res, next) {
                         }
                     }));
                 }).catch(function(err) {
-                    console.log(err);
+                    debug.log(err);
                     return writeError(400, 'Some problems with vk api', res);
                 });
             });
             break;
         default:
+            return writeError(400, 'An error occurred', res);
             break;
     }
 });

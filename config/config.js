@@ -1,7 +1,7 @@
 module.exports.config = {
     port : 3000,
     mongoose: {
-        "uri": "mongodb://localhost/test"
+        "uri": "mongodb://localhost/snapshare"
     },
     oauth: {
         redirect_uri: 'http://localhost:3000/oauth/vk'

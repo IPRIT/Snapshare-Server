@@ -1,5 +1,6 @@
 var express = require('express');
 var auth = require('../auth/auth');
+var debug = require('../utils/utils');
 
 var router = express.Router();
 
@@ -27,7 +28,7 @@ router.get('/oauth/:service', function(req, res, next) {
                     social_type: 'vk',
                     social_code: req.query.code
                 }, function(err, sAccessToken) {
-                    console.log(err, sAccessToken);
+                    debug.log(err, sAccessToken);
                     if (err) {
                         res.writeHead(500, {
                             'Content-Type': 'text/html'
@@ -43,7 +44,7 @@ router.get('/oauth/:service', function(req, res, next) {
                     res.writeHead(500, {
                         'Content-Type': 'text/html'
                     });
-                    console.log(err);
+                    debug.log(err);
                     return res.render('oauth/error', {
                         error: 'An error occurred'
                     });
@@ -56,6 +57,11 @@ router.get('/oauth/:service', function(req, res, next) {
                     error: 'An error occurred'
                 });
             }
+            break;
+        default:
+            return res.render('oauth/error', {
+                error: 'Not found'
+            });
             break;
     }
 });

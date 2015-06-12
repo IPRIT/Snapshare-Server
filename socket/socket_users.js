@@ -1,3 +1,5 @@
+var debug = require('../utils/utils');
+
 var SocketUsers = {
     users: null,
     _init: function() {
@@ -11,8 +13,11 @@ var SocketUsers = {
         if (!user_sockets || !Array.isArray(user_sockets) || !user_sockets.length) {
             this.users[social_id] = [];
         }
+        if (this.isExistInUserSockets(social_id, socket_id)) {
+            return;
+        }
         this.users[social_id].push(socket_id);
-        console.log(this.users);
+        debug.log(this.users);
     },
     isExistInUserSockets: function(social_id, socket_id) {
         if (!social_id || !socket_id) {
@@ -35,8 +40,8 @@ var SocketUsers = {
             return false;
         }
         var user_sockets = this.users[social_id];
-        if (!user_sockets || !Array.isArray(user_sockets)) {
-            return false;
+        if (!Array.isArray(user_sockets)) {
+            return [];
         }
         return user_sockets;
     },

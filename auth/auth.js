@@ -2,6 +2,7 @@ var DbModels = require('../db/db');
 var vk = require('vk-sdk');
 var config = require('../config/config').config;
 var crypto = require('crypto');
+var debug = require('../utils/utils');
 
 module.exports = {
     auth: auth
@@ -40,7 +41,7 @@ function auth(params, callback, onError) {
                             if (err) {
                                 callback(true);
                             }
-                            console.log('[Friends saved]', user);
+                            debug.log('[Friends saved]', user);
                             generateAndSaveInternalToken(user, function(err, newToken) {
                                 if (err) {
                                     callback(true);
@@ -69,7 +70,7 @@ function insertOnDuplicateUpdateUser(userInfo, otherParams, callback) {
             user.info.first_name = userInfo.first_name;
             user.info.last_name = userInfo.last_name;
         } else {
-            console.log('New user');
+            debug.log('New user');
             user = new UserModel({
                 info: {
                     social_id: 'vk_' + userInfo.id,
@@ -84,10 +85,10 @@ function insertOnDuplicateUpdateUser(userInfo, otherParams, callback) {
         }
         user.save(function (err) {
             if (!err) {
-                console.log('User saved!', user);
+                debug.log('User saved!', user);
                 callback(false, user);
             } else {
-                console.log('An error occurred in save new user', err);
+                debug.log('An error occurred in save new user', err);
             }
         });
     });
@@ -105,10 +106,10 @@ function getAndSaveFriends(user, callback) {
         user.friends = friends;
         user.save(function(err) {
             if (!err) {
-                console.log('Friends has been received!');
+                debug.log('Friends has been received!');
                 callback(false, user);
             } else {
-                console.log('An error occurred in save user friends', err);
+                debug.log('An error occurred in save user friends', err);
             }
         });
     }).catch(function(err) {
