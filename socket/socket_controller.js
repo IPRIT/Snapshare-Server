@@ -41,6 +41,7 @@ function Connect(io) {
         });
 
         socket.on('user sent link', function(params) {
+
             //взять юзера по access_token
             //проверить, является ли отправитель другом получателя
             //взять socket_ids получателя
